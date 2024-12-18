@@ -189,7 +189,7 @@ export function HomePage() {
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-extrabold text-gray-900">Payroll DApp</h1>
+          <h1 className="text-2xl font-extrabold text-gray-900">Mantle-Pay</h1>
           <WalletConnection />
         </div>
       </header>
@@ -197,7 +197,7 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-extrabold text-gray-900 mb-6">
-              Welcome to Payroll DApp
+              Welcome to Mantle-Pay
             </h1>
             <p className="text-lg text-gray-700">
               Manage your payroll seamlessly with our decentralized application. 
