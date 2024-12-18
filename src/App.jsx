@@ -1,21 +1,24 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { WalletProvider } from "./contexts/WalletContext";
-import { Layout } from "./components/Layout";
+import { HomePage } from "./pages/HomePage";
 import { Dashboard } from "./pages/Dashboard";
+import { PayrollInterface } from "./components/PayrollInterface"
 
 function App() {
   return (
     <WalletProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            {/* Dashboard as the default route */}
-            <Route index element={<Dashboard />} />
+          {/* HomePage as the root route */}
+          <Route path="/" element={<HomePage />} />
 
-            {/* Catch all route - redirects to dashboard */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
+          {/* Dashboard as a separate route */}
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/dashboard" element={<PayrollInterface />} />
+
+          {/* Catch-all route - redirects to the homepage */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </WalletProvider>

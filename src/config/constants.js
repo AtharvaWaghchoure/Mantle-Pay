@@ -12,7 +12,8 @@ export const MANTLE_SEPOLIA_CONFIG = {
 };
 
 export const PAYROLL_CONTRACT = {
-  address: "0x1219815C94BEb8E998cA60cCa84CfcF32d148f29",
+  // address: "0x1219815C94BEb8E998cA60cCa84CfcF32d148f29",
+  address: "0x71a3f5Ea034ff39b45dD9912BDFc2C939F7a004F",
   abi: [
     {
       inputs: [

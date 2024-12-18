@@ -6,7 +6,6 @@ import { DepositForm } from "./DepositForm";
 
 export function PayrollInterface() {
   const { account } = useWallet();
-
   const {
     contract,
     isInitialized,
@@ -110,85 +109,96 @@ export function PayrollInterface() {
     );
   }
 
+  if (account !== "0x20f015325cec1153956eb98bc68328e6cc12dc57") {
+    return (
+      <div className="text-center py-8">
+        <p className="text-gray-600">You are not the owner</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-6">
-      {/* Contract Balance Display */}
-      <div className="bg-white rounded-lg shadow p-6">
+    <>
+      <div className="bg-white rounded-lg shadow p-6 flex justify-between ">
         <h2 className="text-xl font-bold mb-4">Contract Balance</h2>
         <p className="text-3xl font-medium text-blue-600">{balance} MNT</p>
       </div>
+      <div className="">
+        {/* Contract Balance Display */}
 
-      {/* Deposit Form */}
-      <DepositForm account={account} />
+        {/* Deposit Form */}
+        <DepositForm account={account} />
+        <hr className=" border " />
 
-      {/* New Payment Setup Form */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-bold mb-4">Setup New Payment</h2>
-        <form onSubmit={handleSetupPayment} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Recipient Address</label>
-            <input
-              type="text"
-              value={newPayment.recipient}
-              onChange={(e) =>
-                setNewPayment({
-                  ...newPayment,
-                  recipient: e.target.value,
-                })
-              }
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-              placeholder="0x..."
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Amount (MNT)</label>
-            <input
-              type="number"
-              step="0.000000000000000001"
-              value={newPayment.amount}
-              onChange={(e) =>
-                setNewPayment({
-                  ...newPayment,
-                  amount: e.target.value,
-                })
-              }
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-              placeholder="0.0"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Interval (Seconds)</label>
-            <input
-              type="number"
-              value={newPayment.interval}
-              onChange={(e) =>
-                setNewPayment({
-                  ...newPayment,
-                  interval: e.target.value,
-                })
-              }
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-              placeholder="Enter interval in seconds"
-            />
-            {/* Display human-readable interval */}
-            {newPayment.interval && (
-              <p className="mt-1 text-sm text-gray-500">
-                {formatDuration(parseInt(newPayment.interval))}
-              </p>
-            )}
-          </div>
-          <button
-            type="submit"
-            disabled={!newPayment.recipient || !newPayment.amount || !newPayment.interval}
-            className="w-full bg-green-600 text-white py-2 px-4 rounded-md
-              hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Setup Payment
-          </button>
-        </form>
+        {/* New Payment Setup Form */}
+        <div className="bg-[#ffffff] rounded-lg shadow p-6 ">
+          <h2 className="text-xl font-bold mb-4">Setup New Payment</h2>
+          <form onSubmit={handleSetupPayment} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Recipient Address</label>
+              <input
+                type="text"
+                value={newPayment.recipient}
+                onChange={(e) =>
+                  setNewPayment({
+                    ...newPayment,
+                    recipient: e.target.value,
+                  })
+                }
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+                placeholder="0x..."
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Amount (MNT)</label>
+              <input
+                type="number"
+                step="0.000000000000000001"
+                value={newPayment.amount}
+                onChange={(e) =>
+                  setNewPayment({
+                    ...newPayment,
+                    amount: e.target.value,
+                  })
+                }
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+                placeholder="0.0"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Interval (Seconds)</label>
+              <input
+                type="number"
+                value={newPayment.interval}
+                onChange={(e) =>
+                  setNewPayment({
+                    ...newPayment,
+                    interval: e.target.value,
+                  })
+                }
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+                placeholder="Enter interval in seconds"
+              />
+              {/* Display human-readable interval */}
+              {newPayment.interval && (
+                <p className="mt-1 text-sm text-gray-500">
+                  {formatDuration(parseInt(newPayment.interval))}
+                </p>
+              )}
+            </div>
+            <button
+              type="submit"
+              disabled={!newPayment.recipient || !newPayment.amount || !newPayment.interval}
+              className="w-full bg-green-600 text-white py-2 px-4 rounded-md
+                hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Setup Payment
+            </button>
+          </form>
+        </div>
+
+        {/* Active Payments List - Updated to show interval in human-readable format */}
       </div>
-
-      {/* Active Payments List - Updated to show interval in human-readable format */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-bold mb-4">Active Payments</h2>
         {isLoading ? (
@@ -217,8 +227,7 @@ export function PayrollInterface() {
                   onClick={() => handleProcessPayment(payment.id)}
                   disabled={!payment.canProcess}
                   className={`w-full py-2 px-4 rounded-md text-white
-                    ${payment.canProcess ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"}
-                    disabled:opacity-50`}
+                    ${payment.canProcess ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"}`}
                 >
                   Process Payment
                 </button>
@@ -227,6 +236,6 @@ export function PayrollInterface() {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

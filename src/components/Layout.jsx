@@ -31,6 +31,17 @@ export function Layout() {
                         : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                     }`}
                 >
+                  Home
+                </Link>
+                <Link
+                  to="/dashboard"
+                  className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium
+                    ${
+                      isActiveLink("/dashboard")
+                        ? "border-blue-500 text-gray-900"
+                        : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    }`}
+                >
                   Dashboard
                 </Link>
               </div>
@@ -44,10 +55,6 @@ export function Layout() {
         </div>
       </nav>
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <Outlet />
-      </main>
     </div>
   );
 }
