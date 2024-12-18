@@ -17,7 +17,7 @@ export function Layout() {
             <div className="flex">
               {/* Logo/Brand */}
               <div className="flex-shrink-0 flex items-center">
-                <h1 className="text-xl font-bold text-gray-800">Payroll DApp</h1>
+                <h1 className="text-xl font-bold text-gray-800">Mantle-Pay</h1>
               </div>
 
               {/* Navigation Links */}
